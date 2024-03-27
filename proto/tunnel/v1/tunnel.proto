@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package tunnel.v1;
+
+import "google/protobuf/any.proto";
+
+// Message 
+enum MessageType {
+    MESSAGE_TYPE_UNSPECIFIED = 0;
+
+    MESSAGE_TYPE_CHECKIN = 1;
+    MESSAGE_TYPE_CHECKIN_ACK = 2;
+
+    MESSAGE_TYPE_FLOW = 101;
+}
+
+message MessageHeader {
+    MessageType type = 1;
+    map<string, string> meta = 3;
+}
+
+message Message {
+    MessageHeader header = 1;
+    google.protobuf.Any body = 2;
+}
+
+// CheckIn
+message MessageCheckIn {
+    string client_id = 1;
+    string token = 2;
+}
+
+message MessageCheckInAck {
+    int32 result = 1;
+    string errmsg = 2;
+}
+
+// Flow
+message Flow {
+    bytes packet = 1;
+}
