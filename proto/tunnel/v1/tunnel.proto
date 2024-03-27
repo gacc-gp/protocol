@@ -15,27 +15,35 @@ enum MessageType {
 }
 
 message MessageHeader {
+    // Define the type of the message body.
     MessageType type = 1;
-    map<string, string> meta = 3;
+    // Arbitary key-values can be appended to metas.
+    map<string, string> metas = 3;
 }
 
 message Message {
+    // A common header.
     MessageHeader header = 1;
+    // The body is any type, it should be serialized with another proto message, which depends on the `header.type`.
     google.protobuf.Any body = 2;
 }
 
 // CheckIn
 message MessageCheckIn {
+    // Client_id is the unique identify for every clients.
     string client_id = 1;
+    // Token is used to verify a valid client, it should be fetched from API server which can authenticate the user.
     string token = 2;
 }
 
 message MessageCheckInAck {
+    // 0 is success.
     int32 result = 1;
     string errmsg = 2;
 }
 
 // Flow
 message Flow {
+    // Raw bytes read from or write to tuntap device.
     bytes packet = 1;
 }

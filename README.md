@@ -19,10 +19,13 @@ Tunnel protocol defines the frame when `gacc-client` communicates with `gacc-rem
 
 Tunnel frame := {fixed-header:fixed32} + {message:bytes}
 
+
+fixed-header := ({version:4bits} << 28) | {message-len:16} 
+
 > version: 0...3 
 > reserved: 4...15
 > message-len: 16...31
-fixed-header := ({version:4bits} << 28) | {message-len:16} 
+
 
 message := "depends on `version`"
 
