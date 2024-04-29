@@ -32,7 +32,8 @@ message Message {
 
 // Auth
 message AuthReq {
-    string token = 1;
+    string client_id = 1;
+    string token = 2;
 }
 
 message AuthResp {
