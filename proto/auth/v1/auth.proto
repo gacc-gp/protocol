@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package auth.v1;
+
+import "google/protobuf/any.proto";
+
+enum TunnelType {
+    UDP = 0;
+    TCP = 1;
+}
+
+enum MessageType {
+    MESSAGE_TYPE_UNKNOWN = 0;
+
+    MESSAGE_TYPE_AUTH_REQ = 1;
+    MESSAGE_TYPE_AUTH_RESP = 2;
+
+    MESSAGE_TYPE_TUNNEL_REQ = 3;
+    MESSAGE_TYPE_TUNNEL_RESP = 4;
+}
+
+// Message 
+message Header {
+    MessageType type = 1;
+    map<string, string> metas = 3;
+}
+
+message Message {
+    Header header = 1;
+    google.protobuf.Any body = 2;
+}
+
+// Auth
+message AuthReq {
+    string token = 1;
+}
+
+message AuthResp {
+    int32 result = 1;
+    string message = 2;
+}
+
+// Tunnel
+message TunnelReq {
+    TunnelType tunnel_type = 1;
+    // If tunnel_type is UDP, udp port must be provided.
+    int32 udp_port = 2;
+}
+
+message TunnelResp {
+    TunnelType tunnel_type = 1;
+    // If tunnel_type is UDP, udp port must be provided.
+    int32 udp_port = 2;
+}
+

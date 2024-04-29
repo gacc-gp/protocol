@@ -1,43 +1,24 @@
+
+# Auth protocol
+
+Auth protocol must be wired with TCP.
+
+Package := `|ver:4|message-len:28|pb-message|`
+
+pb-message := `auth/v1/auth.proto`
+
+
 # Tunnel protocol
 
-## What
+Tunnel protocol can be wired with TCP or UDP, depends on `auth protocol`.
 
-Tunnel protocol defines the frame when `gacc-client` communicates with `gacc-remote`.
+Package := `|fixed-header:32|payload: {header.payload-len}|`
 
-```
-                                    --------------
-                                    | gacc-remote|<-----------------
-                                    --------------                 |
-                                                             tunnel frame
-                                                                   |
-     ---------------                                        ---------------
-     | game client | -----pkt------> <tun/tap> <----pkt-----| gacc-cient  |
-     ---------------                                        ---------------
-```
+Fixed-header := `|ver:4|flag:4|reserved:8|payload-len:16|`
 
-## Tunnel frame
+flag := Frame |
+        PingReq |
+        PingResp |
+        ConnectionClose |
+        BadFrame
 
-Tunnel frame := {fixed-header:fixed32} + {message:bytes}
-
-
-fixed-header := ({version:4bits} << 28) | {message-len:16} 
-
-> version: 0...3 
->
-> reserved: 4...15
->
-> message-len: 16...31
-
-
-message := "depends on `version`"
-
-## V1 message
-
-V1 message is used when `fixed-header.version` is 1. V1 message bytes are encoded with proto3, refer to `proto/tunnel/v1/`.
-
-```
-message Message {
-    Header header = 1;
-    google.protobuf.Any body = 2;
-}
-```
