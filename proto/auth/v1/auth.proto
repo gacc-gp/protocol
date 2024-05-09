@@ -5,12 +5,13 @@ package auth.v1;
 import "google/protobuf/any.proto";
 
 enum TunnelType {
-    UDP = 0;
-    TCP = 1;
+    TUNNEL_TYPE_UNSPECIFIED = 0;
+    TUNNEL_TYPE_UDP = 1;
+    TUNNEL_TYPE_TCP = 2;
 }
 
 enum MessageType {
-    MESSAGE_TYPE_UNKNOWN = 0;
+    MESSAGE_TYPE_UNSPECIFIED = 0;
 
     MESSAGE_TYPE_AUTH_REQ = 1;
     MESSAGE_TYPE_AUTH_RESP = 2;
