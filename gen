@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if ! command -v buf > /dev/null
+then
+    echo -n "'buf' is not found."
+    echo -n " "
+    echo "See https://buf.build."
+    exit 1
+fi 
+
+echo "Generating..."
+buf generate proto

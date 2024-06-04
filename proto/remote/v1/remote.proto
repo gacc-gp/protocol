@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package remote.v1;
+
+// Auth
+message AuthReq {
+    string client_id = 1;
+    string tun_ip = 2;
+    string token = 3;
+}
+
+// AuthRsp
+message AuthRsp {
+    int32 result = 1;
+    string message = 2;
+}
+
+// Frame
+message Frame {
+    string frame = 1;
+}
+
+// Ping/Pong/ConnectionClose/BadFrame 
+// Currently these are empty messages.
+message Ping {}
+message Pong {}
+message ConnectionClose {}
+message BadFrame {}
+
+

@@ -1,25 +1,24 @@
 
-# Auth protocol
+# Remote protocol
 
-Auth protocol must be wired with TCP.
+Remote protocol can be wired with TCP or UDP.
 
-Message := `|FixHeader:32|pb-message|`
+Message := `|FixedHeader:32|Message|`
 
-FixHeader := `|ver:4|message-len:28|`
+FixedHeader := `|Ver:4|Flag:4|RESERVED:8|message-len:16|`
 
-pb-message := `auth/v1/auth.proto`
-
-# Tunnel protocol
-
-Tunnel protocol can be wired with TCP or UDP, depends on `auth protocol`.
-
-Message := `|FixedHeader:32|payload|`
-
-FixedHeader := `|ver:4|flag:4|RESERVED:8|payload-len:16|`
-
-flag := Frame |
-        PingReq |
-        PingResp |
+Flag := AuthReq |
+        AuthRsp | 
+        Frame |
+        Ping |
+        Pong |
         ConnectionClose |
         BadFrame
 
+Message := `{Protobuf-message}`
+
+# Regenerate
+
+```shell
+sh gen
+```
