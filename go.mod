@@ -1,4 +1,4 @@
-module github.com/gacc/protocol
+module github.com/gacc-gp/protocol
 
 go 1.22.3
 
