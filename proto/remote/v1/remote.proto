@@ -7,6 +7,7 @@ message AuthReq {
     string client_id = 1;
     string tun_ip = 2;
     string token = 3;
+    int32 retry = 4;
 }
 
 // AuthRsp
@@ -17,7 +18,7 @@ message AuthRsp {
 
 // Frame
 message Frame {
-    string frame = 1;
+    bytes frame = 1;
 }
 
 // Ping/Pong/ConnectionClose/BadFrame 
