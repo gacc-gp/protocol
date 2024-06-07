@@ -2,6 +2,12 @@ syntax = "proto3";
 
 package remote.v1;
 
+
+enum AuthResult {
+    AUTH_RESULT_SUCC = 0;
+    AUTH_RESULT_TOKEN_INVALID = 1;
+}
+
 // Auth
 message AuthReq {
     string client_id = 1;
@@ -12,7 +18,7 @@ message AuthReq {
 
 // AuthRsp
 message AuthRsp {
-    int32 result = 1;
+    AuthResult result = 1;
     string message = 2;
 }
 
