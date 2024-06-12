@@ -2,10 +2,25 @@ syntax = "proto3";
 
 package remote.v1;
 
+enum Result {
+    RESULT_OK = 0;
 
-enum AuthResult {
-    AUTH_RESULT_SUCC = 0;
-    AUTH_RESULT_TOKEN_INVALID = 1;
+    // Auth result
+    RESULT_AUTH_TOKEN_INVALID = 1;
+
+    // Tunnel result
+    RESULT_TUNNEL_UNSUPPORT = 101;
+}
+
+enum TunnelProtocol {
+    TUNNEL_PROTOCOL_UDP = 0;
+    TUNNEL_PROTOCOL_TCP = 1;
+}
+
+// NetAddress
+message NetAddress {
+    string ip = 1;
+    int32 port = 2;
 }
 
 // Auth
@@ -13,18 +28,22 @@ message AuthReq {
     string client_id = 1;
     string tun_ip = 2;
     string token = 3;
-    int32 retry = 4;
 }
 
 // AuthRsp
 message AuthRsp {
-    AuthResult result = 1;
+    Result result = 1;
     string message = 2;
 }
 
-// Frame
-message Frame {
-    bytes frame = 1;
+// TunnelReq
+message TunnelReq {
+    TunnelProtocol proto = 1;
+    NetAddress addr = 2;
+}
+
+message TunnelRsp {
+    Result result = 1;
 }
 
 // Ping/Pong/ConnectionClose/BadFrame 
