@@ -9,18 +9,12 @@ enum Result {
     RESULT_AUTH_TOKEN_INVALID = 1;
 
     // Tunnel result
-    RESULT_TUNNEL_UNSUPPORT = 101;
+    RESULT_TUNNEL_PROTOCOL_UNSUPPORTED = 101;
 }
 
 enum TunnelProtocol {
     TUNNEL_PROTOCOL_UDP = 0;
     TUNNEL_PROTOCOL_TCP = 1;
-}
-
-// NetAddress
-message NetAddress {
-    string ip = 1;
-    int32 port = 2;
 }
 
 // Auth
@@ -39,11 +33,14 @@ message AuthRsp {
 // TunnelReq
 message TunnelReq {
     TunnelProtocol proto = 1;
-    NetAddress addr = 2;
+    int32 port = 2;
+    string egress = 3;
 }
 
 message TunnelRsp {
     Result result = 1;
+    TunnelProtocol proto = 2;
+    int32 port = 3;
 }
 
 // Ping/Pong/ConnectionClose/BadFrame 
