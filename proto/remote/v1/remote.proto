@@ -10,6 +10,8 @@ enum Result {
 
     // Tunnel result
     RESULT_TUNNEL_PROTOCOL_UNSUPPORTED = 101;
+    RESULT_TUNNEL_EGRESS_NOTFOUND = 102;
+    RESULT_TUNNEL_EGRESS_UNAVAILABLE = 103;
 }
 
 enum TunnelProtocol {
